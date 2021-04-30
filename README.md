@@ -12,7 +12,7 @@ The SDK supports the following versions of Python:
 Install the latest SDK using pip:
 
 ```sh
-pip install -i https://test.pypi.org/simple/ yuansfer
+pip install yuansfer==3.0.0
 ```
 
 ## Usage
@@ -57,12 +57,12 @@ result = api_online.secure_pay(params)
 # Call the success method to see if the call succeeded
 if result.is_success():
     # Check if the request is successful
-    if response.body['ret_code'] == '000100':
+    if result.body['ret_code'] == '000100':
         # The body property is the resposne from Yuansfer
         yuansferResponse = result.body['result']
         print(yuansferResponse)
-    else
-        print(response.body['ret_msg'])
+    else:
+        print(result.body['ret_msg'])
 # Call the error method to see if the call failed
 elif result.is_error():
     print('Error calling OnlineApi.SecurePay')
@@ -90,12 +90,12 @@ result = offline.instore_create_tran_qrcode(params)
 # Call the success method to see if the call succeeded
 if result.is_success():
     # Check if the request is successful
-    if response.body['ret_code'] == '000100':
+    if result.body['ret_code'] == '000100':
         # The body property is the resposne from Yuansfer
         yuansferResponse = result.body['result']
         print(yuansferResponse)
-    else
-        print(response.body['ret_msg'])
+    else:
+        print(result.body['ret_msg'])
 # Call the error method to see if the call failed
 elif result.is_error():
     print('Error calling OfflineApi.InstoreCreateTranQrcode')
@@ -125,12 +125,12 @@ result = api_mobile.mobile_prepay(params)
 # Call the success method to see if the call succeeded
 if result.is_success():
     # Check if the request is successful
-    if response.body['ret_code'] == '000100':
+    if result.body['ret_code'] == '000100':
         # The body property is the resposne from Yuansfer
         yuansferResponse = result.body['result']
         print(yuansferResponse)
-    else
-        print(response.body['ret_msg'])
+    else:
+        print(result.body['ret_msg'])
 # Call the error method to see if the call failed
 elif result.is_error():
     print('Error calling MobileApi.MobilePrepay')
@@ -155,12 +155,12 @@ result = api_data_search.tran_query(params)
 # Call the success method to see if the call succeeded
 if result.is_success():
     # Check if the request is successful
-    if response.body['ret_code'] == '000100':
+    if result.body['ret_code'] == '000100':
         # The body property is the resposne from Yuansfer
         yuansferResponse = result.body['result']
         print(yuansferResponse)
-    else
-        print(response.body['ret_msg'])
+    else:
+        print(result.body['ret_msg'])
 # Call the error method to see if the call failed
 elif result.is_error():
     print('Error calling DataSearchApi.TranQuery')

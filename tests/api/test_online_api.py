@@ -22,10 +22,10 @@ class OnlineApiTests(ApiTestBase):
     def test_secure_pay(self):
         # Parameters for the API call
         params = {
-            'amount':'0.01',
-            'currency':'USD',
+            'amount':'50',
+            'currency':'KRW',
             'settleCurrency':'USD',
-            'vendor':'alipay',
+            'vendor':'paypal',
             'terminal':'ONLINE',
             'reference': datetime.now,
             'ipnUrl':"http://zk-tys.yunkeguan.com/ttest/test",
@@ -58,4 +58,4 @@ class OnlineApiTests(ApiTestBase):
 unittest = OnlineApiTests()
 unittest.setUpClass()
 unittest.test_secure_pay()
-unittest.test_process()
+# unittest.test_process()

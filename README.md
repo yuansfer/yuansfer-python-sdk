@@ -12,7 +12,7 @@ The SDK supports the following versions of Python:
 Install the latest SDK using pip:
 
 ```sh
-pip install yuansfer==3.0.0
+pip install yuansfer==3.0.1
 ```
 
 ## Usage

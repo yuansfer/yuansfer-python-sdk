@@ -12,9 +12,6 @@ from yuansfer.api.payout_api import PayoutApi
 
 
 class PayoutApiTests(ApiTestBase):
-    accountToken = ""
-    customerNo = ""
-    invoiceId = "testPythonInvocie"
     # Class to initialize Yuansfer configuration
     @classmethod
     def setUpClass(cls):
@@ -58,24 +55,12 @@ class PayoutApiTests(ApiTestBase):
     def test_create_account(self):
         # Parameters for the API call
         params = {
-            "accountType": "PAYPAL",
-            "city": "New York City",
-            "company": "Test Company",
-            "country": "United States",
-            "countryCode": "US",
-            "customerCode": "20210430",
-            "dateOfBirth": "1997-02-04",
-            "email": "shawn202104301220@example.com",
-            "firstName": "Frank",
-            "lastName": "Liu",
-            "mobileNumber": "9001114446",
-            "phone": "(855)982-6885",
-            "state": "NY",
-            "street": "28 Liberty Street",
-            "street2": "FL 2",
-            "zip": "10007",
+            "accountType":"PAYPAL",
+            "accountTag":"20210421001002",
+            "clientIp":"114,114,114,114",
+            "customerNo":"2000305228245812947930",
             "callbackUrl": "https://yuansferdev.com/callback",
-            "ipnUrl": "https://yuansferdev.com/callback"
+
         }
 
         # Perform the API call through the SDK function
@@ -89,5 +74,5 @@ class PayoutApiTests(ApiTestBase):
 unittest = PayoutApiTests()
 unittest.setUpClass()
 unittest.test_create_account()
-unittest.test_pay()
-unittest.test_inquiry()
+# unittest.test_pay()
+# unittest.test_inquiry()

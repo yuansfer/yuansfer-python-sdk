@@ -39,8 +39,7 @@ class CustomerApi(BaseApi):
         _query_url = _query_builder+_url_path
 
         # Parameters validation
-        requiredFileds = ['timestamp','email','firstName','lastName','customerCode','dateOfBirth',
-                         'street','city','state','zip']
+        requiredFileds = ['timestamp','email','firstName','lastName','countryCode']
         self.validate_parameter(requiredFileds,body)
 
         # Prepare and execute request

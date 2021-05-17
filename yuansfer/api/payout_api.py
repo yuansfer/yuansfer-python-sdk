@@ -117,8 +117,7 @@ class PayoutApi(BaseApi):
         _query_url = _query_builder+_url_path
 
         # Parameters validation
-        requiredFileds = ['accountType','email','firstName','lastName','countryCode','dateOfBirth',
-                         'street','city','state','zip']
+        requiredFileds = ['accountType','accountTag','clientIp','customerNo']
         self.validate_parameter(requiredFileds,body)
 
         # Prepare and execute request

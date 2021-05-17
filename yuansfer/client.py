@@ -8,13 +8,13 @@ from yuansfer.api.payout_api import PayoutApi
 from yuansfer.api.recurring_api import RecurringApi
 from yuansfer.api.customer_api import CustomerApi
 from yuansfer.api.auth_api import AuthApi
-from yuansfer.exception import InvalidParamsError
+from yuansfer.exception import RequireParamsError
 
 class Client(object):
 
     @staticmethod
     def sdk_version():
-        return '0.0.1'
+        return '3.0.1'
 
     @staticmethod
     def yuansfer_version():
@@ -55,7 +55,7 @@ class Client(object):
     def __init__(self, timeout=60, max_retries=3, merchantNo=None,
                  environment='production', storeNo=None, token=None):
         if (merchantNo or storeNo or token) is None:
-            raise InvalidParamsError('Configs are missing')
+            raise RequireParamsError('Configs')
         else:
             self.config = Configuration(timeout=timeout,
                                         max_retries=max_retries,

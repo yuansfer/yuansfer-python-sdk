@@ -1,5 +1,8 @@
 from yuansfer.exception import InvalidParamsError
+from yuansfer.exception import RequireParamsError
 import collections
+import hashlib
+import re
 
 class APIHelper(object):
 
@@ -30,6 +33,7 @@ class APIHelper(object):
         """
 
         # Return the result
+        dictionary.pop('verifySign', None)
         return collections.OrderedDict(sorted(dictionary.items()))
 
     @staticmethod
@@ -42,7 +46,7 @@ class APIHelper(object):
         """
         # Parameter validation
         if parameters is None:
-            raise InvalidParamsError('Parameters are missing')
+            raise RequireParamsError('Parameters')
 
         queryString = ""
 
@@ -53,5 +57,26 @@ class APIHelper(object):
                 queryString += "{0}{1}={2}".format(seperator, key, str(value))
         queryString = queryString[1:]
         return queryString
+
+    @staticmethod
+    def verify_signature(parameters,token):
+        """Verify MD5 signature
+        Args:
+            parameters (OrderedDict): The parameters to verify
+            token: The merchant token
+        Returns:
+            bool: true if valid signature.
+        """
+        if not parameters['verifySign']:
+            return False
+
+        verifySign = parameters['verifySign']
+
+        dictionaryParams = APIHelper.to_dictionary(parameters)
+        stringParams = APIHelper.append_parameters(dictionaryParams)
+        md5TokenStr =hashlib.md5(token.encode("utf-8")).hexdigest()
+        resVerifySign = hashlib.md5((stringParams + '&' + md5TokenStr).encode("utf-8")).hexdigest()
+
+        return verifySign == resVerifySign
 
 

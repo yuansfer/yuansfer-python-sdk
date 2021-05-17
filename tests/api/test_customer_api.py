@@ -23,22 +23,11 @@ class CustomerApiTests(ApiTestBase):
         # Parameters for the API call
         params = {
             "timestamp": datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
-            "city": "New York City",
-            "company": "TestCompany",
-            "country": "United States",
             "countryCode": "US",
-            "customerCode": "20210419190001",
-            "dateOfBirth": "1997-03-05",
-            "email": "20210419190001@ldf.fit",
-            "firstName": "Wufan",
-            "lang": "en",
+
+            "email": "202105101111@shawn.yuansfer",
+            "firstName": "ShuPian",
             "lastName": "Sun",
-            "mobileNumber": "9001114446",
-            "phone": "(855)982-6885",
-            "state": "NY",
-            "street": "28 Liberty Street",
-            "street2": "Test Street",
-            "zip": "10007"
         }
 
         # Perform the API call through the SDK function

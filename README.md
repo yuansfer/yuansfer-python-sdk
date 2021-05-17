@@ -1,4 +1,4 @@
-# Yuansfer C# SDK
+# Yuansfer Python SDK
 
 [Yuansfer API](https://docs.yuansfer.com/)
 

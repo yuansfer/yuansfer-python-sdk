@@ -39,7 +39,8 @@ class CustomerApi(BaseApi):
         _query_url = _query_builder+_url_path
 
         # Parameters validation
-        requiredFileds = ['timestamp','email','firstName','lastName','countryCode']
+        requiredFileds = ['email','firstName','lastName','countryCode']
+        self.validation('timestamp',body['timestamp'],'timestamp')
         self.validate_parameter(requiredFileds,body)
 
         # Prepare and execute request
@@ -77,8 +78,9 @@ class CustomerApi(BaseApi):
         _query_url = _query_builder+_url_path
 
         # Parameters validation
-        requiredFileds = ['timestamp','customerNo','customerCode']
+        requiredFileds = ['customerNo','customerCode']
         self.validate_parameter(requiredFileds,body)
+        self.validation('timestamp',body['timestamp'],'timestamp')
 
         # Prepare and execute request
         _request = self.config.http_client.post(_query_url, headers=None, parameters=body)
@@ -115,8 +117,9 @@ class CustomerApi(BaseApi):
         _query_url = _query_builder+_url_path
 
         # Parameters validation
-        requiredFileds = ['timestamp','customerNo']
+        requiredFileds = ['customerNo']
         self.validate_parameter(requiredFileds,body)
+        self.validation('timestamp',body['timestamp'],'timestamp')
 
         # Prepare and execute request
         _request = self.config.http_client.post(_query_url, headers=None, parameters=body)

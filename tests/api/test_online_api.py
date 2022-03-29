@@ -4,6 +4,8 @@
 
 import json
 from datetime import datetime
+import random
+from time import strftime
 
 from tests.api.test_api_base import ApiTestBase
 from tests.test_helper import TestHelper
@@ -23,11 +25,11 @@ class OnlineApiTests(ApiTestBase):
         # Parameters for the API call
         params = {
             'amount':'50',
-            'currency':'KRW',
+            'currency':'USD',
             'settleCurrency':'USD',
             'vendor':'paypal',
             'terminal':'ONLINE',
-            'reference': datetime.now,
+            'reference': random.randint(0,100000000),
             'ipnUrl':"http://zk-tys.yunkeguan.com/ttest/test",
             'callbackUrl':"http://zk-tys.yunkeguan.com/ttest/test",
             'description':'descrip',

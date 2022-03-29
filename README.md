@@ -171,3 +171,64 @@ elif result.is_error():
         for key, value in error.items():
             print(f"{key} : {value}")
         print("\n")
+
+### 5. PayPal Subscription API
+
+# Get an instance of the Pockyt Data Search API you want call
+api_recurring = client.recurring
+# Set request payload
+params = {
+    "clientId": "AXV4uwyZ5WY9zpYs7zaLrnPcHX4s9AA0VdxEX2mo23UTqmVl_aH7V_p0Nguv5sdIB2u3osE40hqIbE7U",
+    "secret": "EEYTIteecQSLblfkiZ6uGFe__Zmoy86uLo4T6Y9fst5m834kY09P3Lhsy4qGRccdLgQXI9AHqudMIoWl",
+    'amount': "100",
+    "productName": "descriptive name for product test",
+    "planName": "descriptive name for plan test",
+    "planDescription": "detailed description for plan",
+    "requestIdProduct": "unique Id for create product request",
+    "requestIdPlan": "unique Id for create plan request",
+    "frequency": "MONTH",
+    "billingCycles": json.dumps([
+        PayPal_BillingCycle(
+            pricing_scheme=PayPal_BillingCycle_PricingScheme(
+                fixed_price= PayPal_BillingCycle_Amount(value="20", currency_code="USD").__dict__
+            ).__dict__,
+            frequency= PayPal_BillingCycle_Frequency(interval_count= 1, interval_unit="MONTH").__dict__,
+            tenure_type="REGULAR",
+            sequence=1,
+            total_cycles=999
+        ).__dict__]
+    ),
+    "paymentPreferences": json.dumps(
+        PayPal_PaymentPreferences(
+            auto_bill_outstanding=True,
+            setup_fee=PayPal_PaymentPreferences_SetUpFee(value=20, currency_code="USD").__dict__,
+            setup_fee_failure_action="CONTINUE",
+            Payment_failure_threshold=3
+        ).__dict__
+    ),
+    "taxes": json.dumps(
+        PayPal_Taxes(percentage="10",inclusive=True).__dict__
+    ),
+    "productSchema": json.dumps(PayPal_ProductSchema(type ="SERVICE", category="SOFTWARE").__dict__)
+}
+# Make a Pockyt PayPal Subscription request
+result = api_recurring.paypal_subscription(params)
+# Call the success method to see if the call succeeded
+if result.is_success():
+    # Check if the request is successful
+    if result.body['ret_code'] == '000100':
+        # The body property is the response from Pockyt
+        yuansferResponse = result.body['result']
+        print(yuansferResponse)
+    else:
+        print(result.body['ret_msg'])
+# Call the error method to see if the call failed
+elif result.is_error():
+    print('Error calling RecurringApi.PayPal_Subscription')
+    errors = result.errors
+    # An error is returned as a list of errors
+    for error in errors:
+    	# Each error is represented as a dictionary
+        for key, value in error.items():
+            print(f"{key} : {value}")
+        print("\n")

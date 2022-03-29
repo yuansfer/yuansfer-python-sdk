@@ -38,7 +38,7 @@ class DataSearchApi(BaseApi):
         _query_url = _query_builder+_url_path
 
         # Parameters validation
-        self.amount_validate('refundAmount',body['refundAmount'])
+        self.validation('refundAmount',body['refundAmount'],'amount')
 
         requiredFileds = ['currency','settleCurrency']
         self.validate_parameter(requiredFileds,body)
@@ -46,10 +46,10 @@ class DataSearchApi(BaseApi):
         transcationNo = body.get('transactionNo')
         reference = body.get('reference')
         if (transcationNo and reference and (body['transactionNo'] and body['reference']) is None) or (not transcationNo and not reference):
-            raise InvalidParamsError("transaction and reference cannot be null at the same time")
+            raise InvalidParamsError("transactionNo and reference cannot be null at the same time")
 
         if transcationNo and reference and (body['transactionNo'] and body['reference']) is not None:
-            raise InvalidParamsError("transaction and reference cannot exist at the same time")
+            raise InvalidParamsError("transactionNo and reference cannot exist at the same time")
 
         # Prepare and execute request
         _request = self.config.http_client.post(_query_url, headers=None, parameters=body)
@@ -89,10 +89,10 @@ class DataSearchApi(BaseApi):
         transcationNo = body.get('transactionNo')
         reference = body.get('reference')
         if (transcationNo and reference and (body['transactionNo'] and body['reference']) is None) or (not transcationNo and not reference):
-            raise InvalidParamsError("transaction and reference cannot be null at the same time")
+            raise InvalidParamsError("transactionNo and reference cannot be null at the same time")
 
         if transcationNo and reference and (body['transactionNo'] and body['reference']) is not None:
-            raise InvalidParamsError("transaction and reference cannot exist at the same time")
+            raise InvalidParamsError("transactionNo and reference cannot exist at the same time")
 
         # Prepare and execute request
         _request = self.config.http_client.post(_query_url, headers=None, parameters=body)
@@ -132,10 +132,96 @@ class DataSearchApi(BaseApi):
         transcationNo = body.get('transactionNo')
         reference = body.get('reference')
         if (transcationNo and reference and (body['transactionNo'] and body['reference']) is None) or (not transcationNo and not reference):
-            raise InvalidParamsError("transaction and reference cannot be null at the same time")
+            raise InvalidParamsError("transactionNo and reference cannot be null at the same time")
 
         if transcationNo and reference and (body['transactionNo'] and body['reference']) is not None:
-            raise InvalidParamsError("transaction and reference cannot exist at the same time")
+            raise InvalidParamsError("transactionNo and reference cannot exist at the same time")
+
+        # Prepare and execute request
+        _request = self.config.http_client.post(_query_url, headers=None, parameters=body)
+        _response = self.execute_request(_request)
+
+        if type(_response.response) is not dict:
+            _errors = _response.reason
+        else:
+            _errors = None
+        _result = ApiResponse(_response, body=_response.response, errors=_errors)
+        return _result
+
+    def mixed_query(self,
+                  body):
+        """POST Request to get transaction detail of mixed qrcode
+        Get transaction detail of mixed qrcode
+        Args:
+            body: An object containing the fields to
+                POST for the request.  See the corresponding object definition
+                for field details.
+        Returns:
+            ApiResponse: An object with the response value as well as other
+                useful information such as status codes and headers. Success
+        Raises:
+            APIException: When an error occurs while fetching the data from
+                the remote API. This exception includes the HTTP Response
+                code, an error message, and the HTTP body that was received in
+                the request.
+        """
+
+        # Prepare query URL
+        _url_path = constant.MIXED_QUERY
+        _query_builder = self.config.get_base_uri()
+        _query_url = _query_builder+_url_path
+
+        # Parameters validation
+        recordNo = body.get('recordNo')
+        reference = body.get('reference')
+        if (recordNo and reference and (body['recordNo'] and body['reference']) is None) or (not recordNo and not reference):
+            raise InvalidParamsError("recordNo and reference cannot be null at the same time")
+
+        if recordNo and reference and (body['recordNo'] and body['reference']) is not None:
+            raise InvalidParamsError("recordNo and reference cannot exist at the same time")
+
+        # Prepare and execute request
+        _request = self.config.http_client.post(_query_url, headers=None, parameters=body)
+        _response = self.execute_request(_request)
+
+        if type(_response.response) is not dict:
+            _errors = _response.reason
+        else:
+            _errors = None
+        _result = ApiResponse(_response, body=_response.response, errors=_errors)
+        return _result
+
+    def mixed_cancel(self,
+                  body):
+        """POST Request to reverse mixed qrcode transaction
+        Reverse Yuansfer transaction
+        Args:
+            body: An object containing the fields to
+                POST for the request.  See the corresponding object definition
+                for field details.
+        Returns:
+            ApiResponse: An object with the response value as well as other
+                useful information such as status codes and headers. Success
+        Raises:
+            APIException: When an error occurs while fetching the data from
+                the remote API. This exception includes the HTTP Response
+                code, an error message, and the HTTP body that was received in
+                the request.
+        """
+
+        # Prepare query URL
+        _url_path = constant.REVERSE
+        _query_builder = self.config.get_base_uri()
+        _query_url = _query_builder+_url_path
+
+        # Parameters validation
+        recordNo = body.get('recordNo')
+        reference = body.get('reference')
+        if (recordNo and reference and (body['recordNo'] and body['reference']) is None) or (not recordNo and not reference):
+            raise InvalidParamsError("recordNo and reference cannot be null at the same time")
+
+        if recordNo and reference and (body['recordNo'] and body['reference']) is not None:
+            raise InvalidParamsError("recordNo and reference cannot exist at the same time")
 
         # Prepare and execute request
         _request = self.config.http_client.post(_query_url, headers=None, parameters=body)

@@ -1,8 +1,6 @@
-from yuansfer.exception import InvalidParamsError
 from yuansfer.exception import RequireParamsError
 import collections
 import hashlib
-import re
 
 class APIHelper(object):
 

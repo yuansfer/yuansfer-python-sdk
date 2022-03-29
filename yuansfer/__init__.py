@@ -3,5 +3,9 @@ __all__ = [
     'client',
     'configuration',
     'http',
-    'decorators'
+    'decorators',
+    'api',
+    'dto',
+    'exception',
+    'constant'
 ]

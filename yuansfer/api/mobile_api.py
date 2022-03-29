@@ -42,12 +42,12 @@ class MobileApi(BaseApi):
         requiredFileds = ['cardNumber','cardExpYear','cardExpMonth','cardCvv','currency','settleCurrency','reference','clientIp']
         self.validate_parameter(requiredFileds,body)
 
-        self.number_validate('cardNumber',body['cardNumber'])
-        self.number_validate('cardExpYear',body['cardExpYear'])
-        self.number_validate('cardExpMonth',body['cardExpMonth'])
-        self.number_validate('cardCvv',body['cardCvv'])
+        self.validation('cardNumber',body['cardNumber'],'number')
+        self.validation('cardExpYear',body['cardExpYear'],'number')
+        self.validation('cardExpMonth',body['cardExpMonth'],'number')
+        self.validation('cardCvv',body['cardCvv'],'number')
 
-        self.amount_validate('amount',body['amount'])
+        self.validation('amount',body['amount'],'amount')
 
         # Prepare and execute request
         _request = self.config.http_client.post(_query_url, headers=None, parameters=body)
@@ -84,7 +84,7 @@ class MobileApi(BaseApi):
         _query_url = _query_builder+_url_path
 
         # Parameters validation
-        self.amount_validate('amount',body['amount'])
+        self.validation('amount',body['amount'],'amount')
 
         requiredFileds = ['reference','currency','settleCurrency','vendor','terminal']
         self.validate_parameter(requiredFileds,body)

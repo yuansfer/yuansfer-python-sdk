@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import json
 from requests.sessions import Session
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
@@ -44,7 +45,7 @@ class RequestsClient(HttpClient):
             request.query_url,
             headers=request.headers,
             params=request.query_parameters,
-            data=request.parameters,
+            data=json.dumps(request.parameters),
             timeout=self.timeout
         )
 

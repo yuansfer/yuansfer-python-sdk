@@ -20,9 +20,9 @@ class HttpRequest(object):
     def __init__(self,
                  http_method,
                  query_url,
-                 headers=None,
-                 query_parameters=None,
-                 parameters=None):
+                 headers,
+                 query_parameters,
+                 parameters):
         """Constructor for the HttpRequest class
         Args:
             http_method (HttpMethodEnum): The HTTP Method.

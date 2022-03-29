@@ -40,7 +40,7 @@ class OnlineApi(BaseApi):
         _query_url = _query_builder+_url_path
 
         # Parameters validation
-        self.amount_validate('amount',body['amount'])
+        self.validation('amount',body['amount'],'amount')
         requiredFileds = ['currency','settleCurrency','vendor','ipnUrl','callbackUrl','terminal','reference']
         self.validate_parameter(requiredFileds,body)
 

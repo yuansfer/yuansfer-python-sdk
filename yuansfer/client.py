@@ -14,7 +14,7 @@ class Client(object):
 
     @staticmethod
     def sdk_version():
-        return '3.0.1'
+        return '3.0.4.0.1'
 
     @staticmethod
     def yuansfer_version():

@@ -102,8 +102,8 @@ class OfflineApiTests(ApiTestBase):
 
 unittest = OfflineApiTests()
 unittest.setUpClass()
-# unittest.test_instore_add()
-# unittest.test_instore_cashier_add()
+unittest.test_instore_add()
+unittest.test_instore_cashier_add()
 # unittest.test_instore_pay()
 unittest.test_instore_create_tran_qrcode
 unittest.test_third_party_acquire_create

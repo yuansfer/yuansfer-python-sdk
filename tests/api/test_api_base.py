@@ -16,4 +16,4 @@ class ApiTestBase(unittest.TestCase):
         """Class method called once before running tests in a test class."""
         cls.request_timeout = 60
         cls.assert_precision = 0.01
-        cls.client = Client(environment='sandbox',merchantNo='200043',storeNo='300014',token='0c2bac90bffefbbbf84f4b17667710fd')
+        cls.client = Client(environment='sandbox',merchantNo='200043',storeNo='300014',token='5cbfb079f15b150122261c8537086d77a')

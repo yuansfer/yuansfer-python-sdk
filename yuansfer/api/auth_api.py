@@ -49,7 +49,7 @@ class AuthApi(BaseApi):
         requiredFileds = ['currency','settleCurrency','outAuthDetailNo','reference']
         self.validate_parameter(requiredFileds,body)
 
-        self.amount_validate('amount',body['amount'])
+        self.validation('amount',body['amount'],'amount')
 
         # Prepare and execute request
         _request = self.config.http_client.post(_query_url, headers=None, parameters=body)
@@ -148,7 +148,7 @@ class AuthApi(BaseApi):
         requiredFileds = ['outAuthDetailNo','currency','settleCurrency']
         self.validate_parameter(requiredFileds,body)
 
-        self.amount_validate('unfreezeAmount',body['unfreezeAmount'])
+        self.validation('unfreezeAmount',body['unfreezeAmount'],'amount')
 
         # Prepare and execute request
         _request = self.config.http_client.post(_query_url, headers=None, parameters=body)
@@ -188,7 +188,7 @@ class AuthApi(BaseApi):
         requiredFileds = ['outAuthInfoNo','outAuthDetailNo','vendor','currency','settleCurrency']
         self.validate_parameter(requiredFileds,body)
 
-        self.amount_validate('amount',body['amount'])
+        self.validation('amount',body['amount'],'amount')
 
         # Prepare and execute request
         _request = self.config.http_client.post(_query_url, headers=None, parameters=body)
@@ -227,8 +227,7 @@ class AuthApi(BaseApi):
         # Parameters validation
         requiredFileds = ['outAuthInfoNo','outAuthDetailNo','vendor']
         self.validate_parameter(requiredFileds,body)
-
-        self.amount_validate('amount',body['amount'])
+        self.validation('amount',body['amount'],'amount')
 
         # Prepare and execute request
         _request = self.config.http_client.post(_query_url, headers=None, parameters=body)

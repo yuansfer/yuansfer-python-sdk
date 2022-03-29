@@ -8,8 +8,9 @@ class BaseApi(object):
 
     def global_headers(self):
         return{
-            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Type': 'application/json',
             'accept': 'application/json',
+
         }
 
     def __init__(self, config):
@@ -19,35 +20,22 @@ class BaseApi(object):
     def config(self):
         return self._config
 
-    def date_validate(self, name, value):
-        # Check if date exists
+    def validation(self,param, value, name):
+        # Check if params exist
         if value is None:
-            raise RequireParamsError(params=name)
+            raise RequireParamsError(params= param)
 
-        reg = r"^\\d{4}\\d{2}\\d{2}$"
+        if name == "timestamp":
+            reg = r"^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})Z$"
+        elif name == "date":
+            reg = r"^\\d{4}\\d{2}\\d{2}$"
+        elif name == "number":
+            reg = r"^[0-9]*[1-9][0-9]*$"
+        elif name == "amount":
+            reg = r"(?=.*?\d)^\$?(([1-9]\d{0,2}(,\d{3})*)|\d+)?(\.\d{1,2})?$"
 
         if not re.match(reg, value):
-            raise InvalidParamsError("data error: " + name)
-
-    def number_validate(self, name, value):
-        # Check if number exists
-        if value is None:
-            raise RequireParamsError(params=name)
-
-        reg = r"^[0-9]*[1-9][0-9]*$"
-
-        if not re.match(reg, value):
-            raise InvalidParamsError("data error: " + name)
-
-    def amount_validate(self, name, value):
-        # Check if amount exists
-        if value is None:
-            raise RequireParamsError(params=name)
-
-        reg = r"(?=.*?\d)^\$?(([1-9]\d{0,2}(,\d{3})*)|\d+)?(\.\d{1,2})?$"
-
-        if not re.match(reg, value):
-            raise InvalidParamsError("data error: " + name)
+            raise InvalidParamsError("data error: " + param)
 
     def validate_parameter(self, requiredFileds, body):
         for name in requiredFileds:
@@ -59,7 +47,9 @@ class BaseApi(object):
 
     def execute_request(self, request, binary=False):
         # Invoke the API call to fetch the response.
-        request.headers = self.global_headers()
+        if request.headers is None:
+            request.headers = self.global_headers()
+
         request.parameters['verifySign'] = self.verify_sign_method(request.parameters)
         func = self.config.http_client.execute
         response = func(request)

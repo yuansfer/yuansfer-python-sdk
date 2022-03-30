@@ -211,8 +211,8 @@ payPalProductSchema.type = "SERVICE"
 payPalProductSchema.category = "SOFTWARE"
 
 params = {
-    "clientId": "<MerchantClientID>",
-    "secret": "<MerchantSecretID>",
+    "clientId": "<MerchantPayPalClientID>",
+    "secret": "<MerchantPayPalSecretID>",
     'amount': "100",
     "productName": "descriptive name for product test",
     "planName": "descriptive name for plan test",

@@ -58,8 +58,8 @@ class RecurringApiTests(ApiTestBase):
         payPalProductSchema.category = "SOFTWARE"
 
         params = {
-            "clientId": "AXV4uwyZ5WY9zpYs7zaLrnPcHX4s9AA0VdxEX2mo23UTqmVl_aH7V_p0Nguv5sdIB2u3osE40hqIbE7U",
-            "secret": "EEYTIteecQSLblfkiZ6uGFe__Zmoy86uLo4T6Y9fst5m834kY09P3Lhsy4qGRccdLgQXI9AHqudMIoWl",
+            "clientId": "<MerchantPayPalClientID>",
+            "secret": "<MerchantPayPalSecretID>",
             'amount': "100",
             "productName": "descriptive name for product test_" + testNumber,
             "planName": "descriptive name for plan test_" + testNumber,

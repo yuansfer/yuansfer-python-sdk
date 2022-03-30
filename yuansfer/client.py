@@ -14,7 +14,7 @@ class Client(object):
 
     @staticmethod
     def sdk_version():
-        return '3.0.4.0.1'
+        return '3.0.4.1.9'
 
     @staticmethod
     def yuansfer_version():
@@ -47,6 +47,10 @@ class Client(object):
     @lazy_property
     def customer(self):
         return CustomerApi(self.config)
+
+    @lazy_property
+    def data_search(self):
+        return DataSearchApi(self.config)
 
     @lazy_property
     def data_search(self):

@@ -1,11 +1,11 @@
 __all__ =[
-    'PayPal_BillingCycle_Amount',
-    'PayPal_BillingCycle_Frequency',
-    'PayPal_BillingCycle_PricingSchema',
-    'PayPal_BillingCycle',
-    'PayPal_PaymentPreferences',
-    'PayPal_ProductSchema',
-    'PayPal_Taxes',
-    'PayPal_BillingCycle_Tiers',
-    'PayPal_PaymentPreferences_SetUpFee'
+    'paypal_billingcycle_amount',
+    'paypal_billingcycle_frequency',
+    'paypal_billingcycle_pricingscheme',
+    'paypal_billingcycle',
+    'paypal_paymentpreferences',
+    'paypal_productschema',
+    'paypal_taxes',
+    'paypal_billingcycle_tiers',
+    'paypal_paymentpreferences_setupfee'
 ]

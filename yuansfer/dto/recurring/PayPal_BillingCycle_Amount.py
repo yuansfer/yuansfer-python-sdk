@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-class PayPal_BillingCycle_Amount:
-    def __init__(self, value = None, currency_code = None) -> None:
+class PayPalBillingCycleAmount(object):
+
+    def __init__(self, value: int = None, currency_code = None):
         self.value = value
         self.currency_code = currency_code

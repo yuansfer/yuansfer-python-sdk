@@ -1,8 +1,4 @@
 # -*- coding: utf-8 -*-
-
-from yuansfer.api_helper import APIHelper
-
-
 class HttpRequest(object):
 
     """Information about an HTTP Request including its method, headers,
@@ -20,9 +16,9 @@ class HttpRequest(object):
     def __init__(self,
                  http_method,
                  query_url,
-                 headers,
-                 query_parameters,
-                 parameters):
+                 headers=None,
+                 query_parameters=None,
+                 parameters=None):
         """Constructor for the HttpRequest class
         Args:
             http_method (HttpMethodEnum): The HTTP Method.

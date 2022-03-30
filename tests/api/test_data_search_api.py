@@ -1,15 +1,5 @@
 # -*- coding: utf-8 -*-
-
-
-
-import json
-from datetime import datetime
-
 from tests.api.test_api_base import ApiTestBase
-from tests.test_helper import TestHelper
-from yuansfer.api_helper import APIHelper
-from yuansfer.api.data_search_api import DataSearchApi
-
 
 class DataSearchApiTests(ApiTestBase):
 
@@ -63,6 +53,6 @@ class DataSearchApiTests(ApiTestBase):
 
 unittest = DataSearchApiTests()
 unittest.setUpClass()
-# unittest.test_refund()
-# unittest.test_reverse()
+unittest.test_refund()
+unittest.test_reverse()
 unittest.test_tran_query()

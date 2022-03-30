@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 VERSION = "v3"
 
 SANDBOX_PREFIX = "https://mapi.yuansfer.yunkeguan.com"

@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-
-
-
 import json
 from datetime import datetime
 import random
@@ -60,4 +57,3 @@ class OnlineApiTests(ApiTestBase):
 unittest = OnlineApiTests()
 unittest.setUpClass()
 unittest.test_secure_pay()
-# unittest.test_process()

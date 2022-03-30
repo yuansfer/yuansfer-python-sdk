@@ -1,7 +1,7 @@
+# -*- coding: utf-8 -*-
 from yuansfer.dto.recurring.paypal_billingcycle_amount import PayPalBillingCycleAmount
 from yuansfer.dto.recurring.paypal_billingcycle_frequency import PayPalBillingCycleFrequency
-
-class PayPalBillingCyclePricingScheme(object):
+class PayPalBillingCyclePricingScheme(dict):
     def __init__(
             self,
             version: int = None,
@@ -15,3 +15,4 @@ class PayPalBillingCyclePricingScheme(object):
         self.tiers = tiers
         self.update_time = update_time
         self.create_time = create_time
+        self.__dict__ = self

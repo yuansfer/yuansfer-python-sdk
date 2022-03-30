@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 import json
 from requests.sessions import Session
 from requests.adapters import HTTPAdapter

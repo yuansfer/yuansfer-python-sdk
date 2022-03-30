@@ -1,15 +1,7 @@
 # -*- coding: utf-8 -*-
-
-
-
-import json
 from datetime import datetime
 
 from tests.api.test_api_base import ApiTestBase
-from tests.test_helper import TestHelper
-from yuansfer.api_helper import APIHelper
-from yuansfer.api.customer_api import CustomerApi
-
 
 class CustomerApiTests(ApiTestBase):
 

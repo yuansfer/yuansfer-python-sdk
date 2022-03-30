@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-
-
-
 import json
 from msilib.schema import Billboard
+from random import randint
+from xml.etree.ElementTree import tostring
 
 from tests.api.test_api_base import ApiTestBase
 from yuansfer.dto.recurring.paypal_billingcycle import PayPalBillingCycle
@@ -24,39 +23,59 @@ class RecurringApiTests(ApiTestBase):
     # Make Recurring Payment request.
     def test_paypal_subscription(self):
         # Parameters for the API call
+        testNumber = str(randint(0,100000000))
+
+        # Declare PayPal Billing Cycle Object
+        paypalBillingCycle = PayPalBillingCycle()
+        paypalBillingCycle.sequence = 1
+        paypalBillingCycle.tenure_type = "REGULAR"
+        paypalBillingCycle.total_cycles = 999
+        paypalBillingCycle.frequency = PayPalBillingCycleFrequency()
+        paypalBillingCycle.frequency.interval_count = 1
+        paypalBillingCycle.frequency.interval_unit = "MONTH"
+        paypalBillingCycle.pricing_scheme = PayPalBillingCyclePricingScheme()
+        paypalBillingCycle.pricing_scheme.fixed_price = PayPalBillingCycleAmount()
+        paypalBillingCycle.pricing_scheme.fixed_price.value = 20
+        paypalBillingCycle.pricing_scheme.fixed_price.currency_code = "USD"
+
+        # Declare PayPal Payment Preferences Object
+        paypalPaymentPreferences = PayPalPaymentPreferences()
+        paypalPaymentPreferences.auto_bill_outstanding = True
+        paypalPaymentPreferences.setup_fee = PayPalPaymentPreferencesSetUpFee()
+        paypalPaymentPreferences.setup_fee.value = 20
+        paypalPaymentPreferences.setup_fee.currency_code = "USD"
+        paypalPaymentPreferences.setup_fee_failure_action = "CONTINUE"
+        paypalPaymentPreferences.Payment_failure_threshold = 3
+
+        # Declare PayPal Taxes Object
+        paypalTaxes = PayPalTaxes()
+        paypalTaxes.percentage = "10"
+        paypalTaxes.inclusive = True
+
+        # Declare PayPal Product Schema Object
+        payPalProductSchema = PayPalProductSchema()
+        payPalProductSchema.type = "SERVICE"
+        payPalProductSchema.category = "SOFTWARE"
+
         params = {
             "clientId": "AXV4uwyZ5WY9zpYs7zaLrnPcHX4s9AA0VdxEX2mo23UTqmVl_aH7V_p0Nguv5sdIB2u3osE40hqIbE7U",
             "secret": "EEYTIteecQSLblfkiZ6uGFe__Zmoy86uLo4T6Y9fst5m834kY09P3Lhsy4qGRccdLgQXI9AHqudMIoWl",
             'amount': "100",
-            "productName": "descriptive name for product test",
-            "planName": "descriptive name for plan test",
-            "planDescription": "detailed description for plan",
-            "requestIdProduct": "unique Id for create product request",
-            "requestIdPlan": "unique Id for create plan request",
+            "productName": "descriptive name for product test_" + testNumber,
+            "planName": "descriptive name for plan test_" + testNumber,
+            "planDescription": "detailed description for plan_" + testNumber,
+            "requestIdProduct": "unique Id for create product request_" + testNumber,
+            "requestIdPlan": "unique Id for create plan request_" + testNumber,
             "frequency": "MONTH",
-            "billingCycles": json.dumps([
-                PayPalBillingCycle(
-                    pricing_scheme=PayPalBillingCyclePricingScheme(
-                        fixed_price= PayPalBillingCycleAmount(value="20", currency_code="USD").__dict__
-                    ).__dict__,
-                    frequency= PayPalBillingCycleFrequency(interval_count= 1, interval_unit="MONTH").__dict__,
-                    tenure_type="REGULAR",
-                    sequence=1,
-                    total_cycles=999
-                ).__dict__]
+            "billingCycles": json.dumps([paypalBillingCycle]
             ),
             "paymentPreferences": json.dumps(
-                PayPalPaymentPreferences(
-                    auto_bill_outstanding=True,
-                    setup_fee=PayPalPaymentPreferencesSetUpFee(value=20, currency_code="USD").__dict__,
-                    setup_fee_failure_action="CONTINUE",
-                    Payment_failure_threshold=3
-                ).__dict__
+                paypalPaymentPreferences
             ),
             "taxes": json.dumps(
-                PayPalTaxes(percentage="10",inclusive=True).__dict__
+                paypalTaxes
             ),
-            "productSchema": json.dumps(PayPalProductSchema(type ="SERVICE", category="SOFTWARE").__dict__)
+            "productSchema": json.dumps(payPalProductSchema)
         }
 
         # Perfo                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    rm the API call through the SDK function
@@ -68,5 +87,3 @@ class RecurringApiTests(ApiTestBase):
 unittest = RecurringApiTests()
 unittest.setUpClass()
 unittest.test_paypal_subscription()
-# unittest.test_pay()
-# unittest.test_inquiry()

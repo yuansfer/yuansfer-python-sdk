@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class lazy_property(object):
 
     """A decorator class for lazy instantiation."""

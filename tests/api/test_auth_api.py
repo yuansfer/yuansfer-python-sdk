@@ -1,15 +1,6 @@
 # -*- coding: utf-8 -*-
-
-
-
-import json
 from datetime import datetime
-
 from tests.api.test_api_base import ApiTestBase
-from tests.test_helper import TestHelper
-from yuansfer.api_helper import APIHelper
-from yuansfer.api.auth_api import AuthApi
-
 
 class AuthApiTests(ApiTestBase):
 
@@ -103,9 +94,9 @@ class AuthApiTests(ApiTestBase):
 
 unittest = AuthApiTests()
 unittest.setUpClass()
-# unittest.test_auth_capture()
-# unittest.test_auth_detail_query()
-# unittest.test_auth_freeze()
-# unittest.test_auth_unfreeze()
-# unittest.test_auth_voucher_create()
+unittest.test_auth_capture()
+unittest.test_auth_detail_query()
+unittest.test_auth_freeze()
+unittest.test_auth_unfreeze()
+unittest.test_auth_voucher_create()
 

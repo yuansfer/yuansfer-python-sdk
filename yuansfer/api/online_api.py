@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
-
 from yuansfer import api_helper
 from yuansfer.api_helper import APIHelper
 from yuansfer.http.api_response import ApiResponse
 from yuansfer.api.base_api import BaseApi
 from yuansfer import constant
 from yuansfer.exception import InvalidParamsError
-
 
 class OnlineApi(BaseApi):
 

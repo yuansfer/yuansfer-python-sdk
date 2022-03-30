@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from yuansfer.decorators import lazy_property
 from yuansfer.configuration import Configuration
 from yuansfer.api.online_api import OnlineApi
@@ -14,7 +15,7 @@ class Client(object):
 
     @staticmethod
     def sdk_version():
-        return '3.0.4.1.9'
+        return '3.0.2'
 
     @staticmethod
     def yuansfer_version():

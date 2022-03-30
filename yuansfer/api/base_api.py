@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from yuansfer.api_helper import APIHelper
 from yuansfer.exception import RequireParamsError
 from yuansfer.exception import InvalidParamsError
@@ -20,18 +21,18 @@ class BaseApi(object):
     def config(self):
         return self._config
 
-    def validation(self,param, value, name):
+    def validation(self,param, value, validationType):
         # Check if params exist
         if value is None:
-            raise RequireParamsError(params= param)
+            raise RequireParamsError(params = param)
 
-        if name == "timestamp":
+        if validationType == "timestamp":
             reg = r"^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})Z$"
-        elif name == "date":
+        elif validationType == "date":
             reg = r"^\\d{4}\\d{2}\\d{2}$"
-        elif name == "number":
+        elif validationType == "number":
             reg = r"^[0-9]*[1-9][0-9]*$"
-        elif name == "amount":
+        elif validationType == "amount":
             reg = r"(?=.*?\d)^\$?(([1-9]\d{0,2}(,\d{3})*)|\d+)?(\.\d{1,2})?$"
 
         if not re.match(reg, value):

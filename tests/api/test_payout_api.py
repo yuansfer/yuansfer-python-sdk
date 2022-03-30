@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-
-
-
 import json
 from datetime import datetime
 
@@ -74,5 +71,5 @@ class PayoutApiTests(ApiTestBase):
 unittest = PayoutApiTests()
 unittest.setUpClass()
 unittest.test_create_account()
-# unittest.test_pay()
-# unittest.test_inquiry()
+unittest.test_pay()
+unittest.test_inquiry()

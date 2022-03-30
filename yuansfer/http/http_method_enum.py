@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-
 class HttpMethodEnum(object):
 
     """Enumeration of an HTTP Method

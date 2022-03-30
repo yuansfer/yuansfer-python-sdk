@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
-
 from yuansfer.api_helper import APIHelper
 from yuansfer.http.api_response import ApiResponse
 from yuansfer.api.base_api import BaseApi
 from yuansfer.exception import InvalidParamsError
 from yuansfer import constant
-
 
 class RecurringApi(BaseApi):
 
@@ -233,6 +231,8 @@ class RecurringApi(BaseApi):
         _query_url = _query_builder+_url_path
 
         # Parameters validation
+        requiredFileds = ['clientId','secret']
+        self.validate_parameter(requiredFileds,body)
 
         # Prepare and execute request
         _request = self.config.http_client.post(_query_url,

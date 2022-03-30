@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
-
-import os
 import unittest
 
 from yuansfer.client import Client
-
 
 class ApiTestBase(unittest.TestCase):
 

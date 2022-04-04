@@ -1,8 +1,4 @@
 # -*- coding: utf-8 -*-
-
-from yuansfer.api_helper import APIHelper
-
-
 class HttpRequest(object):
 
     """Information about an HTTP Request including its method, headers,

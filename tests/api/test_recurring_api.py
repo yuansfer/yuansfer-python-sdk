@@ -1,110 +1,69 @@
 # -*- coding: utf-8 -*-
-
-
-
 import json
-from datetime import datetime
+from msilib.schema import Billboard
+from random import randint
+from xml.etree.ElementTree import tostring
 
 from tests.api.test_api_base import ApiTestBase
-from tests.test_helper import TestHelper
-from yuansfer.api_helper import APIHelper
-from yuansfer.api.auth_api import AuthApi
+from yuansfer.dto.recurring.paypal_billingcycle import PayPalBillingCycle
+from yuansfer.dto.recurring.paypal_billingcycle_amount import PayPalBillingCycleAmount
+from yuansfer.dto.recurring.paypal_billingcycle_frequency import PayPalBillingCycleFrequency
+from yuansfer.dto.recurring.paypal_billingcycle_pricingscheme import PayPalBillingCyclePricingScheme
+from yuansfer.dto.recurring.paypal_paymentpreferences import PayPalPaymentPreferences
+from yuansfer.dto.recurring.paypal_paymentpreferences_setupfee import PayPalPaymentPreferencesSetUpFee
+from yuansfer.dto.recurring.paypal_productschema import PayPalProductSchema
+from yuansfer.dto.recurring.paypal_taxes import PayPalTaxes
 
-
-class AuthApiTests(ApiTestBase):
-
+class RecurringApiTests(ApiTestBase):
     # Class to initialize Yuansfer configuration
     @classmethod
     def setUpClass(cls):
-        super(AuthApiTests, cls).setUpClass()
+        super(RecurringApiTests, cls).setUpClass()
 
-    # Make Auth Capture request.
-    def test_auth_capture(self):
+    # Make Recurring Payment request.
+    def test_paypal_subscription(self):
         # Parameters for the API call
         params = {
-            'amount': '0.01',
-            'outAuthInfoNo': '298217806906830305',
-            'currency': 'USD',
-            'settleCurrency': 'USD',
-            'reference': datetime.now(),
-            'outAuthDetailNo': '0000'
+            "clientId": "<MerchantPayPalClientID>",
+            "secret": "<MerchantPayPalSecretID>",
+            'amount': "100",
+            "productName": "descriptive name for product test",
+            "planName": "descriptive name for plan test",
+            "planDescription": "detailed description for plan",
+            "requestIdProduct": "unique Id for create product request",
+            "requestIdPlan": "unique Id for create plan request",
+            "frequency": "MONTH",
+            "billingCycles": json.dumps([
+                PayPalBillingCycle(
+                    pricing_scheme=PayPalBillingCyclePricingScheme(
+                        fixed_price= PayPalBillingCycleAmount(value="20", currency_code="USD").to_dict()
+                    ).to_dict(),
+                    frequency= PayPalBillingCycleFrequency(interval_count= 1, interval_unit="MONTH").to_dict(),
+                    tenure_type="REGULAR",
+                    sequence=1,
+                    total_cycles=999
+                ).to_dict()]
+            ),
+            "paymentPreferences": json.dumps(
+                PayPalPaymentPreferences(
+                    auto_bill_outstanding=True,
+                    setup_fee=PayPalPaymentPreferencesSetUpFee(value=20, currency_code="USD").to_dict(),
+                    setup_fee_failure_action="CONTINUE",
+                    payment_failure_threshold=3
+                ).to_dict()
+            ),
+            "taxes": json.dumps(
+                PayPalTaxes(percentage="10",inclusive=True).to_dict()
+            ),
+            "productSchema": json.dumps(PayPalProductSchema(type ="SERVICE", category="SOFTWARE").to_dict())
         }
 
-        # Perform the API call through the SDK function
-        response = self.client.auth.auth_capture(params)
+        # Perfo                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    rm the API call through the SDK function
+        response = self.client.recurring.paypal_subscription(params)
         data = response.body
         # Test response code
         self.assertEqual(data['ret_code'], '000100')
 
-    # Make Auth Detail Query request.
-    def test_auth_detail_query(self):
-        # Parameters for the API call
-        params = {
-            'outAuthInfoNo': '298217806906830305',
-            'outAuthDetailNo': '0000'
-        }
-
-        # Perform the API call through the SDK function
-        response = self.client.auth.auth_detail_query(params)
-        data = response.body
-        # Test response code
-        self.assertEqual(data['ret_code'], '000100')
-
-    # Make Auth Unfreeze request.
-    def test_auth_unfreeze(self):
-        # Parameters for the API call
-        params = {
-            'unfreezeAmount': '0.01',
-            'outAuthInfoNo': '298217806906830305',
-            'currency': 'USD',
-            'settleCurrency': 'USD',
-            'outAuthDetailNo': '0000'
-        }
-
-        # Perform the API call through the SDK function
-        response = self.client.auth.auth_unfreeze(params)
-        data = response.body
-        # Test response code
-        self.assertEqual(data['ret_code'], '000100')
-
-    # Make Auth Freeze request.
-    def test_auth_freeze(self):
-        # Parameters for the API call
-        params = {
-            'amount': '0.01',
-            'outAuthInfoNo': '298217806906830305',
-            'currency': 'USD',
-            'settleCurrency': 'USD',
-            'outAuthDetailNo': '0000',
-            'vendor': 'alipay'
-        }
-
-        # Perform the API call through the SDK function
-        response = self.client.auth.auth_freeze(params)
-        data = response.body
-        # Test response code
-        self.assertEqual(data['ret_code'], '000100')
-
-    # Make Auth Voucher Create request.
-    def test_auth_voucher_create(self):
-        # Parameters for the API call
-        params = {
-            'amount': '0.01',
-            'outAuthInfoNo': '298217806906830305',
-            'outAuthDetailNo': '0000',
-            'vendor': 'alipay'
-        }
-
-        # Perform the API call through the SDK function
-        response = self.client.auth.auth_voucher_create(params)
-        data = response.body
-        # Test response code
-        self.assertEqual(data['ret_code'], '000100')
-
-unittest = AuthApiTests()
+unittest = RecurringApiTests()
 unittest.setUpClass()
-# unittest.test_auth_capture()
-# unittest.test_auth_detail_query()
-# unittest.test_auth_freeze()
-# unittest.test_auth_unfreeze()
-unittest.test_auth_voucher_create()
+unittest.test_paypal_subscription()

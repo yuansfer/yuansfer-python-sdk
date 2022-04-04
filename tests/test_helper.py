@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-
-import os, tempfile, requests
-
 class TestHelper(object):
 
     """A Helper Class for various functions associated with API testing.

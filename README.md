@@ -12,7 +12,7 @@ The SDK supports the following versions of Python:
 Install the latest SDK using pip:
 
 ```sh
-pip install yuansfer==3.0.1
+pip install yuansfer==3.0.2.0
 ```
 
 ## Usage
@@ -164,6 +164,69 @@ if result.is_success():
 # Call the error method to see if the call failed
 elif result.is_error():
     print('Error calling DataSearchApi.TranQuery')
+    errors = result.errors
+    # An error is returned as a list of errors
+    for error in errors:
+    	# Each error is represented as a dictionary
+        for key, value in error.items():
+            print(f"{key} : {value}")
+        print("\n")
+
+### 5. PayPal Subscription API
+
+# Get an instance of the Pockyt Data Search API you want call
+api_recurring = client.recurring
+
+## Set request payload
+# Declare PayPal Billing Cycle Object
+params = {
+    "clientId": "<PayPalClientID>",
+    "secret": "<PayPalSecretID>",
+    'amount': "100",
+    "productName": "descriptive name for product test",
+    "planName": "descriptive name for plan test",
+    "planDescription": "detailed description for plan",
+    "requestIdProduct": "unique Id for create product request",
+    "requestIdPlan": "unique Id for create plan request",
+    "frequency": "MONTH",
+    "billingCycles": json.dumps([
+        PayPalBillingCycle(
+            pricing_scheme=PayPalBillingCyclePricingScheme(
+                fixed_price= PayPalBillingCycleAmount(value="20", currency_code="USD").to_dict()
+            ).to_dict(),
+            frequency= PayPalBillingCycleFrequency(interval_count= 1, interval_unit="MONTH").to_dict(),
+            tenure_type="REGULAR",
+            sequence=1,
+            total_cycles=999
+        ).to_dict()]
+    ),
+    "paymentPreferences": json.dumps(
+        PayPalPaymentPreferences(
+            auto_bill_outstanding=True,
+            setup_fee=PayPalPaymentPreferencesSetUpFee(value=20, currency_code="USD").to_dict(),
+            setup_fee_failure_action="CONTINUE",
+            payment_failure_threshold=3
+        ).to_dict()
+    ),
+    "taxes": json.dumps(
+        PayPalTaxes(percentage="10",inclusive=True).to_dict()
+    ),
+    "productSchema": json.dumps(PayPalProductSchema(type ="SERVICE", category="SOFTWARE").to_dict())
+}
+# Make a Pockyt PayPal Subscription request
+result = api_recurring.paypal_subscription(params)
+# Call the success method to see if the call succeeded
+if result.is_success():
+    # Check if the request is successful
+    if result.body['ret_code'] == '000100':
+        # The body property is the response from Pockyt
+        yuansferResponse = result.body['result']
+        print(yuansferResponse)
+    else:
+        print(result.body['ret_msg'])
+# Call the error method to see if the call failed
+elif result.is_error():
+    print('Error calling RecurringApi.PayPal_Subscription')
     errors = result.errors
     # An error is returned as a list of errors
     for error in errors:

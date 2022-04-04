@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
-
 from yuansfer.http.http_method_enum import HttpMethodEnum
 from yuansfer.http.http_request import HttpRequest
-
 
 class HttpClient(object):
 

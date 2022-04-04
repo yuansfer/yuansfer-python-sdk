@@ -1,6 +1,4 @@
-import json
-
-
+# -*- coding: utf-8 -*-
 class ApiResponse:
 
     """Http response received.

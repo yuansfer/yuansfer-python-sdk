@@ -1,4 +1,4 @@
-from yuansfer.api_helper import APIHelper
+# -*- coding: utf-8 -*-
 from yuansfer.http.requests_client import RequestsClient
 
 class Configuration(object):
@@ -56,7 +56,6 @@ class Configuration(object):
     def create_http_client(self):
         return RequestsClient(timeout=self.timeout,
                               max_retries=self.max_retries)
-
 
     # All environments
     environments = {

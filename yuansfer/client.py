@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from yuansfer.decorators import lazy_property
 from yuansfer.configuration import Configuration
 from yuansfer.api.online_api import OnlineApi
@@ -14,7 +15,7 @@ class Client(object):
 
     @staticmethod
     def sdk_version():
-        return '3.0.1'
+        return '3.0.2.0'
 
     @staticmethod
     def yuansfer_version():
@@ -51,6 +52,7 @@ class Client(object):
     @lazy_property
     def data_search(self):
         return DataSearchApi(self.config)
+
 
     def __init__(self, timeout=60, max_retries=3, merchantNo=None,
                  environment='production', storeNo=None, token=None):

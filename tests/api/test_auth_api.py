@@ -1,106 +1,102 @@
 # -*- coding: utf-8 -*-
-
-
-
-import json
 from datetime import datetime
-
 from tests.api.test_api_base import ApiTestBase
-from tests.test_helper import TestHelper
-from yuansfer.api_helper import APIHelper
-from yuansfer.api.offline_api import OfflineApi
 
-
-class OfflineApiTests(ApiTestBase):
+class AuthApiTests(ApiTestBase):
 
     # Class to initialize Yuansfer configuration
     @classmethod
     def setUpClass(cls):
-        super(OfflineApiTests, cls).setUpClass()
+        super(AuthApiTests, cls).setUpClass()
 
-    # Make Instore Add Transaction request.
-    def test_instore_add(self):
+    # Make Auth Capture request.
+    def test_auth_capture(self):
         # Parameters for the API call
         params = {
-            'amount':'0.01',
-            'currency':'USD',
-            'settleCurrency':'USD',
-            'reference': datetime.now
+            'amount': '0.01',
+            'outAuthInfoNo': '298217806906830305',
+            'currency': 'USD',
+            'settleCurrency': 'USD',
+            'reference': datetime.now(),
+            'outAuthDetailNo': '0000'
         }
 
         # Perform the API call through the SDK function
-        response = self.client.offline.instore_add(params)
+        response = self.client.auth.auth_capture(params)
         data = response.body
         # Test response code
         self.assertEqual(data['ret_code'], '000100')
 
-    # Make Instore Cashier Add request.
-    def test_instore_cashier_add(self):
+    # Make Auth Detail Query request.
+    def test_auth_detail_query(self):
         # Parameters for the API call
         params = {
-            'currency':'USD',
-            'reference': datetime.now,
-            'ipnUrl':"http://zk-tys.yunkeguan.com/ttest/test",
+            'outAuthInfoNo': '298217806906830305',
+            'outAuthDetailNo': '0000'
         }
 
         # Perform the API call through the SDK function
-        response = self.client.offline.instore_cashier_add(params)
+        response = self.client.auth.auth_detail_query(params)
         data = response.body
         # Test response code
         self.assertEqual(data['ret_code'], '000100')
 
-    # Make Instore Create Tran QR Code request.
-    def test_instore_create_tran_qrcode(self):
+    # Make Auth Unfreeze request.
+    def test_auth_unfreeze(self):
         # Parameters for the API call
         params = {
-            'amount':'0.01',
-            'currency':'USD',
-            'settleCurrency':'USD',
-            'reference': datetime.now
+            'unfreezeAmount': '0.01',
+            'outAuthInfoNo': '298217806906830305',
+            'currency': 'USD',
+            'settleCurrency': 'USD',
+            'outAuthDetailNo': '0000'
         }
 
         # Perform the API call through the SDK function
-        response = self.client.offline.instore_create_tran_qrcode(params)
+        response = self.client.auth.auth_unfreeze(params)
         data = response.body
         # Test response code
         self.assertEqual(data['ret_code'], '000100')
 
-    # Make Instore Payment request.
-    def test_instore_pay(self):
+    # Make Auth Freeze request.
+    def test_auth_freeze(self):
         # Parameters for the API call
         params = {
-            'reference': datetime.now,
-            'paymentBarcode':'test',
-            'vendor':'wechat'
+            'amount': '0.01',
+            'outAuthInfoNo': '298217806906830305',
+            'currency': 'USD',
+            'settleCurrency': 'USD',
+            'outAuthDetailNo': '0000',
+            'vendor': 'alipay'
         }
 
         # Perform the API call through the SDK function
-        response = self.client.offline.instore_pay(params)
+        response = self.client.auth.auth_freeze(params)
         data = response.body
         # Test response code
         self.assertEqual(data['ret_code'], '000100')
 
-    # Make Third Party Acquire request.
-    def test_third_party_acquire_create(self):
+    # Make Auth Voucher Create request.
+    def test_auth_voucher_create(self):
         # Parameters for the API call
         params = {
-            'amount':'0.01',
-            'currency':'USD',
-            'settleCurrency':'USD',
-            'vendor':'alipay',
-            'alipayUserId':"shawnTest",
+            'amount': '0.01',
+            'outAuthInfoNo': '298217806906830305',
+            'outAuthDetailNo': '0000',
+            'vendor': 'alipay'
         }
 
         # Perform the API call through the SDK function
-        response = self.client.offline.third_party_acquire_create(params)
+        response = self.client.auth.auth_voucher_create(params)
         data = response.body
         # Test response code
         self.assertEqual(data['ret_code'], '000100')
 
-unittest = OfflineApiTests()
+unittest = AuthApiTests()
 unittest.setUpClass()
-unittest.test_instore_add()
-unittest.test_instore_cashier_add()
-unittest.test_instore_pay()
-unittest.test_instore_create_tran_qrcode()
-unittest.test_third_party_acquire_create()
+unittest.test_auth_capture()
+unittest.test_auth_detail_query()
+unittest.test_auth_freeze()
+unittest.test_auth_unfreeze()
+unittest.test_auth_voucher_create()
+

@@ -1,15 +1,7 @@
 # -*- coding: utf-8 -*-
-
-
-
-import json
 from datetime import datetime
 
 from tests.api.test_api_base import ApiTestBase
-from tests.test_helper import TestHelper
-from yuansfer.api_helper import APIHelper
-from yuansfer.api.mobile_api import MobileApi
-
 
 class MobileApiTests(ApiTestBase):
 
@@ -59,5 +51,5 @@ class MobileApiTests(ApiTestBase):
 
 unittest = MobileApiTests()
 unittest.setUpClass()
-# unittest.test_express_pay()
+unittest.test_express_pay()
 unittest.test_mobile_prepay()

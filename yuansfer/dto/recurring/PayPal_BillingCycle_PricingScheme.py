@@ -15,4 +15,6 @@ class PayPalBillingCyclePricingScheme(dict):
         self.tiers = tiers
         self.update_time = update_time
         self.create_time = create_time
-        self.__dict__ = self
+
+    def to_dict(self):
+        return self.__dict__

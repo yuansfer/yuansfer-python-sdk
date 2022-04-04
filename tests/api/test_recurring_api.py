@@ -23,59 +23,39 @@ class RecurringApiTests(ApiTestBase):
     # Make Recurring Payment request.
     def test_paypal_subscription(self):
         # Parameters for the API call
-        testNumber = str(randint(0,100000000))
-
-        # Declare PayPal Billing Cycle Object
-        paypalBillingCycle = PayPalBillingCycle()
-        paypalBillingCycle.sequence = 1
-        paypalBillingCycle.tenure_type = "REGULAR"
-        paypalBillingCycle.total_cycles = 999
-        paypalBillingCycle.frequency = PayPalBillingCycleFrequency()
-        paypalBillingCycle.frequency.interval_count = 1
-        paypalBillingCycle.frequency.interval_unit = "MONTH"
-        paypalBillingCycle.pricing_scheme = PayPalBillingCyclePricingScheme()
-        paypalBillingCycle.pricing_scheme.fixed_price = PayPalBillingCycleAmount()
-        paypalBillingCycle.pricing_scheme.fixed_price.value = 20
-        paypalBillingCycle.pricing_scheme.fixed_price.currency_code = "USD"
-
-        # Declare PayPal Payment Preferences Object
-        paypalPaymentPreferences = PayPalPaymentPreferences()
-        paypalPaymentPreferences.auto_bill_outstanding = True
-        paypalPaymentPreferences.setup_fee = PayPalPaymentPreferencesSetUpFee()
-        paypalPaymentPreferences.setup_fee.value = 20
-        paypalPaymentPreferences.setup_fee.currency_code = "USD"
-        paypalPaymentPreferences.setup_fee_failure_action = "CONTINUE"
-        paypalPaymentPreferences.Payment_failure_threshold = 3
-
-        # Declare PayPal Taxes Object
-        paypalTaxes = PayPalTaxes()
-        paypalTaxes.percentage = "10"
-        paypalTaxes.inclusive = True
-
-        # Declare PayPal Product Schema Object
-        payPalProductSchema = PayPalProductSchema()
-        payPalProductSchema.type = "SERVICE"
-        payPalProductSchema.category = "SOFTWARE"
-
         params = {
             "clientId": "<MerchantPayPalClientID>",
             "secret": "<MerchantPayPalSecretID>",
             'amount': "100",
-            "productName": "descriptive name for product test_" + testNumber,
-            "planName": "descriptive name for plan test_" + testNumber,
-            "planDescription": "detailed description for plan_" + testNumber,
-            "requestIdProduct": "unique Id for create product request_" + testNumber,
-            "requestIdPlan": "unique Id for create plan request_" + testNumber,
+            "productName": "descriptive name for product test",
+            "planName": "descriptive name for plan test",
+            "planDescription": "detailed description for plan",
+            "requestIdProduct": "unique Id for create product request",
+            "requestIdPlan": "unique Id for create plan request",
             "frequency": "MONTH",
-            "billingCycles": json.dumps([paypalBillingCycle]
+            "billingCycles": json.dumps([
+                PayPalBillingCycle(
+                    pricing_scheme=PayPalBillingCyclePricingScheme(
+                        fixed_price= PayPalBillingCycleAmount(value="20", currency_code="USD").to_dict()
+                    ).to_dict(),
+                    frequency= PayPalBillingCycleFrequency(interval_count= 1, interval_unit="MONTH").to_dict(),
+                    tenure_type="REGULAR",
+                    sequence=1,
+                    total_cycles=999
+                ).to_dict()]
             ),
             "paymentPreferences": json.dumps(
-                paypalPaymentPreferences
+                PayPalPaymentPreferences(
+                    auto_bill_outstanding=True,
+                    setup_fee=PayPalPaymentPreferencesSetUpFee(value=20, currency_code="USD").to_dict(),
+                    setup_fee_failure_action="CONTINUE",
+                    payment_failure_threshold=3
+                ).to_dict()
             ),
             "taxes": json.dumps(
-                paypalTaxes
+                PayPalTaxes(percentage="10",inclusive=True).to_dict()
             ),
-            "productSchema": json.dumps(payPalProductSchema)
+            "productSchema": json.dumps(PayPalProductSchema(type ="SERVICE", category="SOFTWARE").to_dict())
         }
 
         # Perfo                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    rm the API call through the SDK function

@@ -9,4 +9,6 @@ class PayPalBillingCycle(dict):
         self.tenure_type = tenure_type
         self.sequence = sequence
         self.total_cycles = total_cycles
-        self.__dict__ = self
+
+    def to_dict(self):
+        return self.__dict__

@@ -8,4 +8,6 @@ class PayPalPaymentPreferences(dict):
         self.setup_fee = setup_fee
         self.setup_fee_failure_action = setup_fee_failure_action
         self.Payment_failure_threshold = payment_failure_threshold
-        self.__dict__ = self
+
+    def to_dict(self):
+        return self.__dict__

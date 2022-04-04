@@ -6,4 +6,6 @@ class PayPalBillingCycleTiers(dict):
         self.amount = amount
         self.starting_quantity = starting_quantity
         self.ending_quantity = ending_quantity
-        self.__dict__ = self
+
+    def to_dict(self):
+        return self.__dict__

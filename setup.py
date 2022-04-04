@@ -12,7 +12,7 @@ else:
 
 setup(
     name='yuansfer',
-    version='3.0.2',
+    version='3.0.2.0',
     description='Use Yuansfer SDK to manage and run business including payment, refund, customer',
     long_description=long_description,
     long_description_content_type="text/markdown",
